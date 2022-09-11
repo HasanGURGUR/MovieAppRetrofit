@@ -9,6 +9,6 @@ interface ApiService {
 
     @GET("movie/upcoming")
     fun getUpcomingMovies(@Query("api_key") api_key : String,
-                      @Query("page") page : String)
+                      @Query("page") page : Int)
     : Single<UpcomingResponseModel>
 }

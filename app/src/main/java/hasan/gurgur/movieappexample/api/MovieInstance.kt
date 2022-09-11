@@ -18,7 +18,7 @@ class MovieInstance {
         .build()
         .create(ApiService::class.java)
 
-    fun getUpcomingMovies(page : String): Single<UpcomingResponseModel> {
+    fun getUpcomingMovies(page : Int): Single<UpcomingResponseModel> {
         return api.getUpcomingMovies(API_KEY, page)
     }
 }

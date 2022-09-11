@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-   
+
 
 }
 
@@ -32,7 +32,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding true
         dataBinding true
     }
@@ -73,4 +73,8 @@ dependencies {
 
     //Paging
     implementation "android.arch.paging:runtime:1.0.1"
+
+    def paging_version = "3.0.0" //current version at the time
+
+    implementation "androidx.paging:paging-runtime:$paging_version"
 }

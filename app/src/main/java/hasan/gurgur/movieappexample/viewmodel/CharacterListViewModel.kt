@@ -2,12 +2,15 @@ package hasan.gurgur.movieappexample.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import hasan.gurgur.movieappexample.api.MovieInstance
 import hasan.gurgur.movieappexample.model.UpcomingResponseModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.Flow
 
 class CharacterListViewModel : ViewModel() {
 
@@ -16,7 +19,7 @@ class CharacterListViewModel : ViewModel() {
     private val movieService: MovieInstance = MovieInstance()
     private val disposable: CompositeDisposable = CompositeDisposable()
 
-    fun fetchDataFromRemoteApi(page : String) {
+    fun fetchDataFromRemoteApi(page : Int) {
         disposable.add(
             movieService.getUpcomingMovies(page)
                 .subscribeOn(Schedulers.newThread())
