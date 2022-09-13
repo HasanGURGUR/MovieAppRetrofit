@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import hasan.gurgur.movieappexample.R
 import hasan.gurgur.movieappexample.databinding.FragmentFirstBinding
 import hasan.gurgur.movieappexample.model.Result
 import hasan.gurgur.movieappexample.viewmodel.CharacterListViewModel
@@ -59,7 +62,8 @@ class FirstFragment : Fragment() {
 
     private fun initAdapter() {
         characterListAdapter = CharacterListAdapter {
-            Toast.makeText(requireContext(), it?.original_title, Toast.LENGTH_SHORT).show()
+
+            findNavController().navigate(R.id.action_firstFragment_to_detailFragment, bundleOf("movie_detail" to it))
         }
 
         binding.characterListRec.layoutManager =
