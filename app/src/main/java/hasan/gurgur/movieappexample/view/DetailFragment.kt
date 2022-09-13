@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import hasan.gurgur.movieappexample.R
 import hasan.gurgur.movieappexample.databinding.FragmentDetailBinding
 
-
+@AndroidEntryPoint
 class DetailFragment : Fragment() {
 
     val args: DetailFragmentArgs by navArgs()

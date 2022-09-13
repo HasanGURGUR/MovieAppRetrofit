@@ -7,16 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import hasan.gurgur.movieappexample.R
 import hasan.gurgur.movieappexample.databinding.FragmentFirstBinding
 import hasan.gurgur.movieappexample.model.Result
 import hasan.gurgur.movieappexample.viewmodel.CharacterListViewModel
 
-
+@AndroidEntryPoint
 class FirstFragment : Fragment() {
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
@@ -26,14 +28,10 @@ class FirstFragment : Fragment() {
     var totalItemCount: Int = 0
     var page = 1
 
-    private lateinit var viewModel: CharacterListViewModel
+    private val viewModel : CharacterListViewModel by viewModels()
     lateinit var characterListAdapter: CharacterListAdapter
     var list = arrayListOf<Result>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,8 +40,6 @@ class FirstFragment : Fragment() {
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         initAdapter()
 
-
-        viewModel = ViewModelProvider(requireActivity()).get(CharacterListViewModel::class.java)
         viewModel.fetchDataFromRemoteApi(page)
 
         viewModel.upcomingMoviesModel.observe(requireActivity()) {

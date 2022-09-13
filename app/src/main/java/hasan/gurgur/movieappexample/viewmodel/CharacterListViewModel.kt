@@ -2,26 +2,25 @@ package hasan.gurgur.movieappexample.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import hasan.gurgur.movieappexample.api.MovieInstance
+import dagger.hilt.android.lifecycle.HiltViewModel
+import hasan.gurgur.movieappexample.api.MovieRepository
 import hasan.gurgur.movieappexample.model.UpcomingResponseModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.Flow
+import javax.inject.Inject
 
-class CharacterListViewModel : ViewModel() {
+
+@HiltViewModel
+class CharacterListViewModel @Inject constructor(private val repository: MovieRepository) : ViewModel() {
 
     val upcomingMoviesModel = MutableLiveData<UpcomingResponseModel>()
-
-    private val movieService: MovieInstance = MovieInstance()
     private val disposable: CompositeDisposable = CompositeDisposable()
 
     fun fetchDataFromRemoteApi(page : Int) {
         disposable.add(
-            movieService.getUpcomingMovies(page)
+            repository.getUpcomingMovies(page)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<UpcomingResponseModel>() {
